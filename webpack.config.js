@@ -46,7 +46,8 @@ switch(process.env.npm_lifecycle_event) {
           filename: '[name].[chunkhash].js',
           // This is used for require.ensure. The setup
           // will work without but this is useful to set.
-          chunkFilename: '[chunkhash].js'
+          chunkFilename: '[chunkhash].js',
+          publicPath: '/webpack-demo/'
         }
       },
       parts.clean(PATHS.build),
