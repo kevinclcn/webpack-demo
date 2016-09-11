@@ -37,6 +37,7 @@ var config;
 
 switch(process.env.npm_lifecycle_event) {
   case 'build':
+  case 'stats':
     config = merge(common,
       {
         devtool: 'source-map',
@@ -76,4 +77,4 @@ switch(process.env.npm_lifecycle_event) {
     )
 }
 
-module.exports = validate(config);
+module.exports = validate(config, { quiet: true });
