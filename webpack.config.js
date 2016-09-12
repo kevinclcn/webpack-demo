@@ -1,5 +1,4 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
 const validate = require('webpack-validator');
 
@@ -14,11 +13,12 @@ const PATHS = {
   build: path.join(__dirname, 'build')
 };
 
-const common = {
+const common = merge({
 
   entry: {
     style: PATHS.style,
-    app: PATHS.app
+    app: path.join(PATHS.app, 'index.js'),
+    foo: path.join(PATHS.app, 'foo.js')
   },
 
   output: {
@@ -26,12 +26,20 @@ const common = {
     filename: '[name].js'
   },
 
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: 'Webpack demo'
-    })
-  ]
-};
+  // Important! Do not remove ''. If you do, imports without
+  // an extension won't work anymore!
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  }
+},
+  parts.addHtmlForEntry({
+    name: "foo"
+  }),
+
+  parts.addHtmlForEntry({
+    name: "app"
+  })
+);
 
 var config;
 

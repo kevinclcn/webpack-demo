@@ -5,6 +5,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const PurifyCSSPlugin = require('purifycss-webpack-plugin');
 
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 exports.devServer = function(options) {
   return {
     devServer: {
@@ -139,4 +141,19 @@ exports.purifyCSS = function(paths) {
       }),
     ]
   }
+}
+
+exports.addHtmlForEntry = function(options) {
+  return {
+    plugins: [
+      new HtmlWebpackPlugin({
+        template: require('html-webpack-template'),
+        title: options.title ? options.title : "Webpack demo",
+        appMountId: options.appMountId,
+        inject: false,
+        chunks: ['manifest', 'style', 'vendor', options.name],
+        filename: options.name + ".html"
+      })
+    ]
+  };
 }
